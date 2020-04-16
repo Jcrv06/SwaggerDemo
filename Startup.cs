@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Swashbuckle.AspNetCore.Swagger;
 using System.IO;
 using Microsoft.Extensions.PlatformAbstractions;
 
@@ -30,25 +23,26 @@ namespace SwaggerDemo
 
          services.AddSwaggerGen(c =>
           {
-             c.SwaggerDoc("v1", new Info { Title = "SwaggerDemo", Version = "v1" });
+            c.SwaggerDoc("v1",  new Microsoft.OpenApi.Models.OpenApiInfo() { Title = "SwaggerDemo", Version = "v1" });
 
-              c.SwaggerDoc("v2", new Info
+            c.SwaggerDoc("v2", new Microsoft.OpenApi.Models.OpenApiInfo()
              {
                 Version = "v2",
                 Title = "SwaggerDemo API",
-                Description = "Customers API to demo Swagger",
-                TermsOfService = "None",
-                Contact = new Contact 
-                { 
+                Description = "Customers API to demo Swagger", 
+                Contact=new Microsoft.OpenApi.Models.OpenApiContact()
+                {
+  
                     Name = "Hinault Romaric", 
-                    Email = "hinault@monsite.com", 
-                    Url = "http://rdonfack.developpez.com/"
+                    Email = "hinault@monsite.com" 
+                    
                 },
-                License = new License
-                 { 
-                     Name = "Apache 2.0", 
-                     Url = "http://www.apache.org"
+                 License= new Microsoft.OpenApi.Models.OpenApiLicense(){
+                      Name = "Apache 2.0"
+                     
                  }
+                  
+                
             });
 
               var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "SwaggerDemo.xml");
