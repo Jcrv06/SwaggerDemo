@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.IO;
 using Microsoft.Extensions.PlatformAbstractions;
+using System;
 
 namespace SwaggerDemo
 {
@@ -20,9 +21,31 @@ namespace SwaggerDemo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            // services.ConfigureSwaggerGen(options =>
 
-         services.AddSwaggerGen(c =>
-          {
+            // {
+
+            // //Determine base path for the application.
+
+            // var basePath = AppContext.BaseDirectory;
+
+            
+
+            // var assemblyName = System.Reflection.Assembly.GetEntryAssembly().GetName().Name;
+
+            
+
+            // var fileName = System.IO.Path.GetFileName(assemblyName + ".xml");
+
+            
+
+            // //Set the comments path for the swagger json and ui.
+
+            // options.IncludeXmlComments(System.IO.Path.Combine(basePath, fileName));
+
+            // });
+            services.AddSwaggerGen(c =>
+            {
             c.SwaggerDoc("v1",  new Microsoft.OpenApi.Models.OpenApiInfo() { Title = "SwaggerDemo", Version = "v1" });
 
             c.SwaggerDoc("v2", new Microsoft.OpenApi.Models.OpenApiInfo()
@@ -45,9 +68,9 @@ namespace SwaggerDemo
                 
             });
 
-              var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "SwaggerDemo.xml");
+            //   var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "SwaggerDemo.xml");
 
-              c.IncludeXmlComments(filePath);
+            //   c.IncludeXmlComments(filePath);
         
           });
 
@@ -61,7 +84,7 @@ namespace SwaggerDemo
             app.UseStaticFiles();
 
              app.UseSwagger();
-
+             
              app.UseSwaggerUI(c =>
              {
                c.SwaggerEndpoint("/swagger/v1/swagger.json", "SwaggerDemo v1");

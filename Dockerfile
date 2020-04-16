@@ -1,11 +1,13 @@
 #Depending on the operating system of the host machines(s) that will build or run the containers, the image specified in the FROM statement may need to be changed.
 #For more information, please see https://aka.ms/containercompat
-
-FROM microsoft/aspnetcore:2.0-nanoserver-1903 AS base
+ 
+FROM microsoft/aspnetcore AS base
 WORKDIR /app
 EXPOSE 51323
 
-FROM microsoft/aspnetcore-build:2.0-nanoserver-1903 AS build
+
+
+FROM microsoft/aspnetcore-build AS build
 WORKDIR /src
 COPY ["SwaggerDemo.csproj", "./"]
 RUN dotnet restore "./SwaggerDemo.csproj"
@@ -20,3 +22,4 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "SwaggerDemo.dll"]
+
